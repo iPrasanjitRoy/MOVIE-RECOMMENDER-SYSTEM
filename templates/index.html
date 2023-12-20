@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Movie Recommender System</title>
+    <h1>By Prasanjit Roy</h1>
+    <h2>TMDB MOVIE DATASET</h2>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        select {
+            width: 200px;
+            padding: 5px;
+        }
+
+        button {
+            padding: 8px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        div {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        div > div {
+            width: 200px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        p {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Movie Recommender System</h1>
+
+    <form method="POST" action="/">
+        <label for="selected_movie">Select A Movie:</label>
+        <select name="selected_movie" id="selected_movie">
+            {% for movie in movie_list %}
+                <option value="{{ movie }}">{{ movie }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Show Recommendations</button>
+    </form>
+
+    {% if recommended_movie_names and recommended_movie_posters %}
+        <h2>Recommended Movies:</h2>
+        <div>
+            {% for name, poster in zip(recommended_movie_names, recommended_movie_posters) %}
+                <div>
+                    <img src="{{ poster }}" alt="{{ name }} Poster">
+                    <p>{{ name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No Recommendations Available.</p>
+    {% endif %}
+</body>
+</html>
